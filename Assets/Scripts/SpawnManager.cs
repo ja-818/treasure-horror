@@ -6,10 +6,9 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public GameObject treasurePrefab;
-    private int waveCount = 4;
-    private float rangeX = 48f;
-    private float rangeZtop = 48f;
-    private float rangeZbottom = -24f;
+    private int waveCount = 1;
+    private float range = 48f;
+    private float zBottomRange = -30f;
     
     // Start is called before the first frame update
     void Start()
@@ -34,7 +33,7 @@ public class SpawnManager : MonoBehaviour
 
     private Vector3 GenerateRandomPosition()
     {
-        Vector3 randomPos = new Vector3(Random.Range(-rangeX, rangeX), 0.5f, Random.Range(-rangeZbottom, rangeZtop));
+        Vector3 randomPos = new Vector3(Random.Range(-range, range), 0.5f, Random.Range(zBottomRange, range));
         return randomPos;
     }
 }

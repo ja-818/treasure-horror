@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public AudioClip pickupTreasureSound;
     public Transform playerCamera;
-    private Rigidbody playerRb;
     public float sensitivity;
     public float speed;
     public float jump;
 
+    private AudioSource playerAudio;
+    private Rigidbody playerRb;
     private float mouseX;
     private float mouseY;
     private float horizontalInput;
     private float verticalInput;
+
     private bool isOnGround = true;
+    private bool hasTreasure = false;
     // Start is called before the first frame update
     void Start()
     {
-        playerRb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+
+        playerAudio = GetComponent<AudioSource>();
+        playerRb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -62,6 +68,13 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Ground"))
         {
             isOnGround = true;
+        }
+
+        if (other.CompareTag("Treasure"))
+        {
+            Destroy(other.gameObject);
+            hasTreasure = true;
+            playerAudio.PlayOneShot(pickupTreasureSound);
         }
     }
 }
